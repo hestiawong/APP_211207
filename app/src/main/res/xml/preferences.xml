@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentView">
+
+    <PreferenceCategory
+        android:title="General" >
+
+        <SwitchPreference
+            android:id="@+id/themeSwitch"
+            android:key="theme_preference"
+            android:defaultValue="false"
+            android:title="Dark Theme" />
+
+        <Preference
+            android:key="password_preference"
+            android:summary="Password Lock"
+            android:title="Private" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="About" >
+
+        <Preference
+            android:title="Vision"
+            android:summary="1.0.0" />
+
+        <Preference
+            android:key="contact_preference"
+            android:title="About Us" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
