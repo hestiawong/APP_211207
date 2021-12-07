@@ -1,23 +1,18 @@
 package com.example.myapplication;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
+
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
-import static android.app.PendingIntent.getActivity;
+public class MyPref_Frag extends PreferenceFragment {
 
-public class MyPref_Frag extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+    private class extendsth extends AppCompatActivity {
         //dark theme
         View parentView;
         SwitchMaterial themeSwitch;
@@ -27,7 +22,8 @@ public class MyPref_Frag extends AppCompatActivity implements PreferenceFragment
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            //addPreferencesFromResource(R.xml.preferences);
+            addPreferencesFromResource(R.xml.preferences);
+
             //dark theme
             settings = (UserSetting) getApplication();
             initWidgets();
@@ -65,12 +61,6 @@ public class MyPref_Frag extends AppCompatActivity implements PreferenceFragment
                 }
             });
         }
-        @Override
-        /*public void onResume(){
-            super.onResume();
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String bgTheme = prefs.getString(getString(R.String.UserSetting.CUSTOM_THEME_key),getString());
-        }*/
 
         private void updateView() {
             final int black = ContextCompat.getColor(this, R.color.black);
@@ -79,33 +69,17 @@ public class MyPref_Frag extends AppCompatActivity implements PreferenceFragment
             if (settings.getCustomTheme().equals(UserSetting.DARK_THEME)) {
                 titleTV.setTextColor(white);
                 themeTV.setTextColor(white);
-                //themeTV.setText("Dark");
+                themeTV.setText("Dark");
                 parentView.setBackgroundColor(black);
                 themeSwitch.setChecked(true);
             } else {
                 titleTV.setTextColor(black);
                 themeTV.setTextColor(black);
-               // themeTV.setText("Light");
+                themeTV.setText("Light");
                 parentView.setBackgroundColor(white);
                 themeSwitch.setChecked(false);
             }
         }
-
-    @Override
-    public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference pref) {
-        final Bundle args = pref.getExtras();
-        final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
-                getClassLoader(),
-                pref.getFragment());
-        fragment.setArguments(args);
-        fragment.setTargetFragment(caller,0);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.settings_container, fragment)
-                .addToBackStack(null)
-                .commit();
-        return true;
     }
-
-    }
-
+}
 
